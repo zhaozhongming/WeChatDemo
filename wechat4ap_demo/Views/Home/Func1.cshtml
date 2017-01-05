@@ -1,0 +1,49 @@
+﻿
+@section styles{
+    @Styles.Render("~/Content/jquerymobilecss")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jquerymobile")
+}
+
+@{
+    ViewBag.Title = "Func1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div data-role="page">
+    
+        
+
+    <div role="main" class="ui-content jqm-content">
+
+        <div>
+            <img src="~/Images/hero-tube-trailer.jpg" class="orderimg"/>
+        </div>
+        <div>@ViewBag.OpenID</div>
+        <div class="orderhead">您的订单：</div>
+        <div>
+            @foreach(var item in Model)
+            {
+                <ul data-role="listview" class="ui-listview">
+                  <li data-role="collapsible" data-iconpos="right" data-inset="false" 
+                      class="ui-collapsible ui-collapsible-themed-content ui-li-static ui-body-inherit ui-first-child">
+                      <h2 class="ui-collapsible-heading">
+                            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-inherit ui-icon-minus">
+                                销售订单号: @item.SdDoc<span class="ui-collapsible-heading-status"> click to collapse contents</span>
+                            </a></h2><div class="ui-collapsible-content ui-body-inherit" aria-hidden="false">
+        
+                    <ul data-role="listview" data-theme="b" class="ui-listview ui-group-theme-b">
+                      <li class="ui-first-child">订单状态: @item.DocStatus</li>
+                      <li>客户的采购订单号: @item.PurchNoC</li>
+                      <li>客户名称: @item.Name</li>
+                      <li>物料描述: @item.ShortText</li>
+                      <li class="ui-last-child">物料描述: @item.ReqQty @item.BaseUom</li>
+                    </ul>
+                  </div></li>
+                </ul>
+            }
+	    </div>
+
+    </div>
+</div>

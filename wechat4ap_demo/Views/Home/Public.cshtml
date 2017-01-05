@@ -1,0 +1,60 @@
+﻿
+
+
+@Scripts.Render("http://res.wx.qq.com/open/js/jweixin-1.0.0.js")
+@Scripts.Render("~/Scripts/admin.js")
+
+@section scripts{
+    <script>
+            // render sweetcaptcha on page ready
+            $(function() {
+                $.get('sweet', function (html) {
+                    $('#captcha').empty().append(html);
+                });
+            });
+
+            // Here we validate captcha before form submission
+            // but it is also possible to do that on server side in your controller.
+            function validateCaptcha() {
+                var $form = $('#form-captcha');
+                var sckey = $('input[name=sckey]', $form).val();
+                var scval = $('input[name=scvalue]', $form).val();
+                $.get('sweet', {
+                    'method' : 'check',
+                    'sckey': sckey,
+                    'scvalue': scval,
+                }, function (result) {
+                    $('#captcha').empty().append('SweetCaptcha validation result: ' + result);
+                });
+                return false;
+            }
+</script>
+}
+
+<div id="body">
+    
+    
+    
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Welcome to WeChat4AP</h1>
+            </hgroup>
+
+        </div>
+    </section>
+
+    <section class="content-wrapper main-content clear-fix">
+        <form id="form-captcha" onsubmit="return validateCaptcha()">
+            <div id="captcha"></div>
+            <br />
+            <input type="submit" value="Submit" />
+        </form>
+        
+    </section>
+
+        <section class="content-wrapper main-content clear-fix">
+            <input type="button" onclick="location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx75ee8ceec612733b&redirect_uri=https%3A%2F%2Fsecure.airproducts.com%2Flogin%2FRegistration.aspx&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';" value="Bind WeChat" />
+        </section>
+
+</div>

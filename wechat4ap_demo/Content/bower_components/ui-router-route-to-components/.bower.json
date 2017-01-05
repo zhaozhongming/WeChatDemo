@@ -1,0 +1,31 @@
+{
+  "name": "ui-router-route-to-components",
+  "version": "0.1.0",
+  "description": "Allow routing to components",
+  "main": "./routeToComponents.js",
+  "moduleType": "globals",
+  "ignore": [
+    "karma.conf.js",
+    "test"
+  ],
+  "keywords": [
+    "angular",
+    "angular-ui-router",
+    "components"
+  ],
+  "homepage": "https://github.com/softsimon/ui-router-route-to-components",
+  "author": "Simon Lindh <softsimon@users.noreply.github.com>",
+  "license": "ISC",
+  "dependencies": {
+    "angular-ui-router": ">=0.2.0 <1.0.0"
+  },
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.0",
+    "commit": "42cc22d80235ef549e3da98184238b93cc62812c"
+  },
+  "_source": "https://github.com/softsimon/ui-router-route-to-components.git",
+  "_target": "^0.1.0",
+  "_originalSource": "ui-router-route-to-components"
+}

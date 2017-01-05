@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html ng-app="weChatDemoApp">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Air Products - 4S</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/dist/css/app.min.css" />
+    <script type="text/javascript" src="~/Content/dist/js/app.min.js"></script>
+</head>
+<body>
+    <div id="head"><span id="headicon" class="glyphicon glyphicon-menu-hamburger pull-left"></span> </div>
+    <div class="container-fluid">
+        <div ng-strict-di ng-controller="homeController"
+             id="carousel-func" class="col-lg-6 carousel slide" data-ride="carousel" data-interval="false">
+            <div class="carousel-inner" role="listbox">
+                <div class="item" ng-class="{ active: true }">
+                    <a type="button"
+                       href="#carousel-func" role="button" data-slide="next">
+                        <h2>Our Culture</h2>
+                        <h4>Safety</h4>
+                        <ul>
+                            <li>Enjoyable place to work</li>
+                            <li>Encourages people to get involved</li>
+                            <li>Disciplined approach to every job</li>
+                            <li>More efficient and profitable operation</li>
+                        </ul>
+                        <h4>Speed</h4>
+                        <ul>
+                            <li>Get it done</li>
+                            <li>Sense of urgency</li>
+                            <li>Fast responce to customer needs</li>
+                            <li>Once a decision is make, implement!</li>
+                        </ul>
+                        <h4>Simplicity</h4>
+                        <ul>
+                            <li>Simple and clear structure</li>
+                            <li>Simple work and decision-making processes</li>
+                            <li>Simple and well-understood reward system based on areas of responsibility</li>
+                        </ul>
+                        <h4>Self-Confidence</h4>
+                        <ul>
+                            <li>Every employee at Air Products is as capable, or more capable than, any one of our competitors' employees</li>
+                            <li>As a team, we can and will be the best</li>
+                            <li>We are a team working together to win</li>
+                            <li>We are not just doing a job, we are committed to excellence</li>
+                        </ul>
+                    </a>
+                </div>
+                <div class="item">
+                    <a type="button"
+                       href="#carousel-func" role="button" data-slide="next">
+                        <img src="~/Content/images/ap/home.png" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

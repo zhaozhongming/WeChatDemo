@@ -1,0 +1,61 @@
+﻿
+
+
+@Scripts.Render("http://res.wx.qq.com/open/js/jweixin-1.0.0.js")
+@Scripts.Render("~/Scripts/admin.js")
+
+<div id="body">
+    
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Welcome to WeChat4AP Admin</h1>
+            </hgroup>
+           
+        </div>
+    </section>
+
+     <section class="content-wrapper main-content clear-fix">
+        @Html.ActionLink("LoginusingWeChatConfirm", "LoginusingWeChatConfirm", "Home", null, null)
+    </section>
+
+     <section class="content-wrapper main-content clear-fix">
+        @Html.ActionLink("LoginusingWeChatSilently", "LoginusingWeChatSilently", "Home", null, null)
+    </section>
+
+
+    <section class="content-wrapper main-content clear-fix">
+        @using (Html.BeginForm("SendToAll", "Home", FormMethod.Post))
+        {
+        <input type="text" id="sendToAllText" name="sendToAllText" /> 
+
+        <input type="submit" value="SendToAll"/>
+        }
+    </section>
+
+    <section class="content-wrapper main-content clear-fix">
+        @Html.ActionLink("SendToAllArticle", "SendToAllArticle", "Home", null, null)
+    </section>
+
+    
+    <section class="content-wrapper main-content clear-fix">
+        @Html.ActionLink("SendToOneUser", "SendToOneUser", "Home", null, null)
+    </section>
+
+    <section class="content-wrapper main-content clear-fix">
+        @Html.ActionLink("UploadMedia", "UploadMedia", "Home", null, null)
+          </section>  
+
+
+    <section class="content-wrapper main-content clear-fix">
+        @Html.ActionLink("UploadArticle", "UploadArticle", "Home", null, null)
+          </section>  
+    <section class="content-wrapper main-content clear-fix">
+    @ViewBag.ReturnMessage
+            </section>
+
+    @Html.ActionLink("TestSetSession", "TestSetSession", "Home", null, null)
+
+    @Html.ActionLink("TestReadSession", "TestReadSession", "Home", null, null)
+    @ViewBag.SessionValue
+</div>

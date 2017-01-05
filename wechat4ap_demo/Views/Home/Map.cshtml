@@ -1,0 +1,98 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Map</title>
+     
+    <script type="text/javascript" src="~/Scripts/jquery-1.8.2.min.js">
+    </script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=FCC2XrX3ZomRYGyBF9Qtt9fl">
+    </script>
+
+
+</head>
+   
+
+<body>
+    <div id="container"></div> 
+    
+</body>
+
+    <script type="text/javascript">
+        
+        function tick(map) {
+            //var pointsData = '@Html.Raw(ViewBag.LocationsJSON)';
+            $.ajax({
+                url: "/Home/GetLocationsJSON",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    map.clearOverlays();
+
+                    var pointsData = data;
+                    var points = [];
+                    var pointsName = [];
+                    $(jQuery.parseJSON(pointsData)).each(function () {
+                        var userName = this.UserName;
+                        var x = this.Location_X;
+                        var y = this.Location_Y;
+
+                        var point = new BMap.Point(y, x);  // 创建点坐标  
+                        points.push(point);
+                        pointsName.push(userName);
+                    });
+
+                    translateCallback = function (data) {
+                        if (data.status === 0) {
+                            for (var i = 0; i < data.points.length; i++) {
+                                if (pointsName[i] == "ZHAO Zhongming") {
+                                    var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300, 157));
+                                    var marker = new BMap.Marker(data.points[i], { icon: myIcon });  // 创建标注
+                                }
+                                else {
+                                    var marker = new BMap.Marker(data.points[i]);  // 创建标注
+                                }
+                                map.addOverlay(marker);
+                                var label = new BMap.Label(pointsName[i], { offset: new BMap.Size(20, -10) });
+                                marker.setLabel(label);
+                            }
+                        }
+                    }
+                    setTimeout(function () {
+                        var convertor = new BMap.Convertor();
+                        convertor.translate(points, 1, 5, translateCallback)//纠偏
+                    }, 500);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Error - ' + errorThrown);
+                }
+            });
+
+            setTimeout(function () { tick(map); }, 10000);
+        }
+        
+        $(document).ready(function () {
+            var map = new BMap.Map("container");          // 创建地图实例  
+
+            vpw = $(window).width();
+            vph = $(window).height();
+            $('#container').css({ 'height': vph + 'px' });
+            $('#container').css({ 'width': vpw + 'px' });
+
+            var top_right_navigation = new BMap.NavigationControl({ anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL });
+            map.addControl(top_right_navigation);
+
+            //var centPoint = new BMap.Point(121.20787, 31.489919);
+            var centPoint = new BMap.Point(121.47787, 31.229919);
+            map.centerAndZoom(centPoint, 12);
+
+            tick(map);
+        });
+    </script>  
+</html>
