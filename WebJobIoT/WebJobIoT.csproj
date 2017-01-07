@@ -128,6 +128,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Functions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserInfoDA.cs" />
     <Compile Include="WeChat\BasicApi.cs" />
     <Compile Include="WeChat\CommonMethod.cs" />
     <Compile Include="WeChat\Message.cs" />

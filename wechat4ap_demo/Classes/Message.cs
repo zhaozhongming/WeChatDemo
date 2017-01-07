@@ -99,7 +99,7 @@ namespace wechat4ap_demo.Classes
                 //if (showMenu)
                 //    Menu.MenuCreate(Menu.SetupMenuJSON());
 
-                await ResponseXML(WxXmlModel);//回复消息
+                return await ResponseXML(WxXmlModel);//回复消息
 
             }
 
@@ -291,6 +291,18 @@ namespace wechat4ap_demo.Classes
                         XML = await GetTextAsync(WxXmlModel.FromUserName, WxXmlModel.ToUserName, WxXmlModel.Content);
                         return "";
                     }
+                    else if (WxXmlModel.Content.StartsWith("["))
+                    {
+                        try
+                        { 
+                            XML = await CognitiveService.GetSentiment(WxXmlModel.Content.Substring(1, (WxXmlModel.Content.Length - 2)));
+                        }
+                        catch(Exception e)
+                        {
+                            XML = e.Message;
+                        }
+                        XML = ReText(WxXmlModel.FromUserName, WxXmlModel.ToUserName, XML);
+                    }
                     else
                         XML = GetText(WxXmlModel.FromUserName, WxXmlModel.ToUserName, WxXmlModel.Content);
                     break;
@@ -341,10 +353,8 @@ namespace wechat4ap_demo.Classes
                 default://默认回复
                     break;
             }
-            HttpContext.Current.Response.Write(XML);
-            HttpContext.Current.Response.End();
-
-            return string.Empty;
+           
+            return XML;
         }
 
         private static string GetStockPrice()

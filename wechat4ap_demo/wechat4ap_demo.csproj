@@ -204,6 +204,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Classes\CognitiveService.cs" />
     <Compile Include="Classes\CommonMethod.cs" />
     <Compile Include="Classes\BasicApi.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />

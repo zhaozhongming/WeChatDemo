@@ -3,6 +3,7 @@
 
 @Scripts.Render("http://res.wx.qq.com/open/js/jweixin-1.0.0.js")
 @Scripts.Render("~/Scripts/admin.js")
+@model wechat4ap_demo.Controllers.FormData
 
 <div id="body">
     
@@ -25,11 +26,16 @@
 
 
     <section class="content-wrapper main-content clear-fix">
-        @using (Html.BeginForm("SendToAll", "Home", FormMethod.Post))
+        @using (Html.BeginForm("submitForm", "Home", FormMethod.Post))
         {
-        <input type="text" id="sendToAllText" name="sendToAllText" /> 
+            @Html.TextBoxFor(m => m.sendToAllText)
+        <input type="submit" value="SendToAll" name="btnType"/>
 
-        <input type="submit" value="SendToAll"/>
+
+
+        @Html.TextBoxFor(m => m.congnitiveTest)
+
+        <input type="submit" value="CongnitiveTest" name="btnType"/>
         }
     </section>
 
@@ -50,7 +56,7 @@
     <section class="content-wrapper main-content clear-fix">
         @Html.ActionLink("UploadArticle", "UploadArticle", "Home", null, null)
           </section>  
-    <section class="content-wrapper main-content clear-fix">
+    <section class="content-wrapper main-content clear-fix" style="font-size:2em">
     @ViewBag.ReturnMessage
             </section>
 

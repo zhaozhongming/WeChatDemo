@@ -19,33 +19,53 @@ using System.Net.Http;
 
 namespace wechat4ap_demo.Controllers
 {
+    public class FormData
+    {
+        public string sendToAllText { get; set; }
+        public string congnitiveTest { get; set; }
+    }
     public class HomeController : Controller
     {
         public async Task<ActionResult> Index()
         {
             //IoThub.SendCloudToDeviceMessageAsync(1);
 
-            Response.ContentType = "text/plain";
-            if (Request.HttpMethod.ToLower() == "post")
+            //var ret = CognitiveService.GetSentiment("I don't think I understand it.");
+
+            //await CognitiveService.GetSentiment("[i love you]".Substring(1, ("[i love you]".Length - 2)));
+            //var returnres = await ret;
+            try
             {
-                //回复消息的时候也需要验证消息，这个很多开发者没有注意这个，存在安全隐患  
-                //微信中 谁都可以获取信息 所以 关系不大 对于普通用户 但是对于某些涉及到验证信息的开发非常有必要
-                if (CheckSignature())
+                Response.ContentType = "text/plain";
+                if (Request.HttpMethod.ToLower() == "post")
                 {
-                    //接收消息
-                    await Message.ReceiveXml();
+                    //回复消息的时候也需要验证消息，这个很多开发者没有注意这个，存在安全隐患  
+                    //微信中 谁都可以获取信息 所以 关系不大 对于普通用户 但是对于某些涉及到验证信息的开发非常有必要
+                    if (CheckSignature())
+                    {
+                        //接收消息
+                        var XML = await Message.ReceiveXml();
+
+                        Response.Write(XML);
+                        Response.Flush();
+
+                    }
+                    else
+                    {
+                        Response.Write("消息并非来自微信");
+                        Response.End();
+                    }
                 }
                 else
                 {
-                    Response.Write("消息并非来自微信");
-                    Response.End();
+                    Valid();
                 }
             }
-            else
+            catch(Exception E)
             {
-                Valid();
+                Response.Write(E.Message);
+                Response.End();
             }
-
             return null;
         }
 
@@ -160,18 +180,26 @@ namespace wechat4ap_demo.Controllers
             return View(olist);
         }
 
-        public ActionResult SendToAll(string sendToAllText)
+        public async Task<ActionResult> submitForm(FormData formData, string btnType)
         {
-            string MsgJson = @"{
-                        ""filter"":{
-                              ""is_to_all"":true
-                           },
-                        ""text"":{
-                        ""content"":""" + sendToAllText + @"""
-                        },
-                        ""msgtype"":""text""}";
+            switch (btnType)
+            {
+                case "SendToAll":
+                    string MsgJson = @"{
+                                ""filter"":{
+                                      ""is_to_all"":true
+                                   },
+                                ""text"":{
+                                ""content"":""" + formData.sendToAllText + @"""
+                                },
+                                ""msgtype"":""text""}";
 
-            ViewBag.ReturnMessage = Message.SendToAll(MsgJson);
+                    ViewBag.ReturnMessage = Message.SendToAll(MsgJson);
+                    break;
+                case "CongnitiveTest":
+                    ViewBag.ReturnMessage = await CognitiveService.GetSentiment(formData.congnitiveTest);
+                    break;
+            }
             
             return View("Admin");
         }
