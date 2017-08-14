@@ -223,6 +223,7 @@
     <Compile Include="Classes\ServiceNow.cs" />
     <Compile Include="Classes\SweetCaptcha.cs" />
     <Compile Include="Classes\UploadInfo.cs" />
+    <Compile Include="Classes\WeChatHelper.cs" />
     <Compile Include="Classes\WeChatUser.cs" />
     <Compile Include="Classes\UserInfoDA.cs" />
     <Compile Include="Controllers\HomeController.cs" />

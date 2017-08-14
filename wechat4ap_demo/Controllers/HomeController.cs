@@ -139,6 +139,10 @@ namespace wechat4ap_demo.Controllers
 
         public ActionResult Admin()
         {
+            string jsapiTicket = wechat4ap_demo.Classes.WeChatHelper.GetJsApiTicket();
+            Dictionary<string, string> dic = WeChatHelper.Sign(jsapiTicket, Request.Url.AbsoluteUri);
+
+            ViewBag.dic = dic;
             return View("Admin");
         }
 

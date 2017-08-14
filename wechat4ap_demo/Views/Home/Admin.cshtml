@@ -1,9 +1,20 @@
 ﻿
 
+<script type="text/javascript">
+    
+    var TIMESTAMP = '@ViewBag.dic["timestamp"]';
+    var NONCESTR = '@ViewBag.dic["noncestr"]';
+    var SIGNATURE = '@ViewBag.dic["signature"]';
+  
+</script>
 
-@Scripts.Render("http://res.wx.qq.com/open/js/jweixin-1.0.0.js")
+
+
+
+@Scripts.Render("http://res.wx.qq.com/open/js/jweixin-1.2.0.js")
 @Scripts.Render("~/Scripts/admin.js")
 @model wechat4ap_demo.Controllers.FormData
+
 
 <div id="body">
     
@@ -15,6 +26,20 @@
            
         </div>
     </section>
+
+
+    <input type="button" id="btnChooseImage" value="Choose Image" onclick="wxChooseImage();" />
+
+    <div id="imgsdiv">
+    </div>
+    <label id="errorLabel" />
+
+
+
+    <input type="button" id="btnUploadImage" value="upload Image" onclick="wxUploadImage();" />
+
+    <label id="base64Label" />
+    <img id="uploadedImg" style="width:150px;height:100px" />
 
      <section class="content-wrapper main-content clear-fix">
         @Html.ActionLink("LoginusingWeChatConfirm", "LoginusingWeChatConfirm", "Home", null, null)
